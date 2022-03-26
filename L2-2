@@ -1,0 +1,178 @@
+#include<iostream>
+#include<iomanip>
+#include<string>
+
+
+using namespace std;
+
+
+double Validate();				//function prototype
+
+int main()
+{
+	double farmArea;
+	double numVeg;
+	double vegSeedCost;
+	double vegPlantationCost;
+	double vegFertCost;
+	double vegLaborCost;
+	double vegSellCost;
+	double veg1SeedCost;
+	double veg1PlantationCost;
+	double veg1FertCost;
+	double veg1LaborCost;
+	double veg1SellCost;
+	double veg2SeedCost;
+	double veg2PlantationCost;
+	double veg2FertCost;
+	double veg2LaborCost;
+	double veg2SellCost;
+	double veg1Portion;
+
+
+	cout << "Ashley Santos\t" << "L2-2\t" << "L2-2.exe" << endl;
+	cout << endl;
+
+	cout << "Enter farm area in acres: ";
+	farmArea = Validate();
+
+	cout << endl;
+	cout << "Enter the number of vegetables planted (1/2): ";
+	numVeg = Validate();
+	cout << endl;
+	
+	if (numVeg < 1 || numVeg > 2)																				//only allow a maximum of 2 vegetables
+	{
+		cout << "Only integers '1' or '2' allowed" << endl;
+		char q;
+		cout << "\nPress any key to Exit.";
+		cin.clear();
+		cin.ignore(100, '\n');
+		cin.get(q);
+
+		exit(EXIT_FAILURE);
+	}
+
+
+	else if (numVeg == 1)																						//if number of vegetables planted is '1', only prompt for 1 vegetable
+	{
+		cout << "Enter seed cost per acre: $";
+		vegSeedCost = Validate();
+		cout << endl;
+
+		cout << "Enter plantation cost per acre: $";
+		vegPlantationCost = Validate();
+		cout << endl;
+
+		cout << "Enter fertilizing cost per acre: $";
+		vegFertCost = Validate();
+		cout << endl;
+
+		cout << "Enter labor cost per acre: $";
+		vegLaborCost = Validate();
+		cout << endl;
+
+		cout << "Enter vegetable selling cost per acre: $";
+		vegSellCost = Validate();
+		cout << endl;
+
+		double totalRev1 = farmArea * vegSellCost;																//calculation for amount of revenue from one vegetable type
+		double totalCost1 = farmArea * (vegSeedCost + vegPlantationCost + vegFertCost + vegLaborCost);			//calculation for amount of money spent to produce one vegetable type
+		double profLoss1 = totalRev1 - totalCost1;																//calculation for amount of money lost or gained after production and sales
+
+		cout << fixed << setprecision(2) << showpoint << "The total revenue is: " << totalRev1 << endl;
+		cout << fixed << setprecision(2) << showpoint << "Profit/loss from farming: $" << profLoss1;
+	}
+
+
+	else if (numVeg == 2)																						//if number of vegetables planted is '2', account for 2 vegetables in prompts
+	{
+		cout << "Enter the portion (as a percentage) of land used for the first vegetable: ";
+		veg1Portion = Validate();
+		cout << endl;
+
+		cout << "Enter first vegetable seed cost per acre: $";
+		veg1SeedCost = Validate();
+		cout << endl;
+
+		cout << "Enter first vegetable plantation cost per acre: $";
+		veg1PlantationCost = Validate();
+		cout << endl;
+
+		cout << "Enter first vegetable fertilizing cost per acre: $";
+		veg1FertCost = Validate();
+		cout << endl;
+
+		cout << "Enter first vegetable labor cost per acre: $";
+		veg1LaborCost = Validate();
+		cout << endl;
+
+		cout << "Enter first vegetable selling cost per acre: $";
+		veg1SellCost = Validate();
+		cout << endl;
+
+		cout << "Enter second vegetable seed cost per acre: $";
+		veg2SeedCost = Validate();
+		cout << endl;
+
+		cout << "Enter second vegetable plantation cost per acre: $";
+		veg2PlantationCost = Validate();
+		cout << endl;
+
+		cout << "Enter second vegetable fertilizing cost per acre: $";
+		veg2FertCost = Validate();
+		cout << endl;
+
+		cout << "Enter second vegetable labor cost per acre: $";
+		veg2LaborCost = Validate();
+		cout << endl;
+
+		cout << "Enter second vegetable selling cost per acre: $";
+		veg2SellCost = Validate();
+		cout << endl;
+
+		double portion1Acres = (farmArea * veg1Portion) / 100;													//conversion of portion of land used for first vegetable from percentage to acres
+		double portion2Acres = (farmArea - portion1Acres);														//calculation of portion of land used for second vegetable in acres
+
+		double totalRev2 = (portion1Acres * veg1SellCost) + (portion2Acres * veg2SellCost);							//calculation for amount of revenue from both vegetables
+
+		double veg1TotalCost = portion1Acres * (veg1SeedCost + veg1PlantationCost + veg1FertCost + veg1LaborCost);	//calculation for amount of money spent to produce first vegetable
+		double veg2TotalCost = portion2Acres * (veg2SeedCost + veg2PlantationCost + veg2FertCost + veg2LaborCost);	//calculation for amount of money spent to produce second vegetable
+		double totalCost2 = veg1TotalCost + veg2TotalCost;															//calculation for total amount of money spent to produce both vegetables
+		double profLoss2 = totalRev2 - totalCost2;																	//calculation for amount of money lost or gained after production and sales
+
+		cout << fixed << setprecision(2) << showpoint << "The total revenue is: " << totalRev2 << endl;
+		cout << fixed << setprecision(2) << showpoint << "Profit/loss from farming: $" << profLoss2;
+	}
+
+
+
+	char q;
+	cout << "\nPress any key to Exit.";
+	cin.ignore(2, '\n');
+	cin.get(q);
+
+	return 0;
+
+
+}
+
+double Validate()
+{
+	double num;
+
+	if (!(cin >> num))
+	{
+		cout << "ERROR: a number must be entered" << endl;
+		char q;
+		cout << "\nPress any key to Exit.";
+		cin.clear();
+		cin.ignore(100, '\n');
+		cin.get(q);
+
+		exit(EXIT_FAILURE);
+
+	}
+	else
+		return num;
+}
